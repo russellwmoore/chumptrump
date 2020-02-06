@@ -1,0 +1,19 @@
+{
+  "manifest_version": 2,
+  "name": "Trump is a Chump",
+  "version": "0.0.1",
+  "description": "A bit of a laugh to keep you sane. Manifest Change",
+  "content_scripts": [
+    {
+      "css": ["./content/style.css"],
+      "js": ["./content/main.js"],
+      "matches": ["https://*/*"]
+    }
+  ],
+  "permissions": ["activeTab", "storage"],
+  "icons": { "16": "16.png", "48": "48.png", "128": "128.png" },
+  "browser_action": {
+    "default_popup": "./popup/index.html"
+  },
+  "options_page": "./options/index.html"
+}

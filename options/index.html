@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Trump is a Chump Options</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+
+  <body>
+    <h1>Trump is a Chump Options</h1>
+    <p>
+      Fill in below what you'd like to replace in webpages you visit.
+    </p>
+    <div>
+      <ul>
+        <li>
+          <label for="Trump">
+            <input type="text" name="Trump" id="trumpSub" /> replaces Trump
+          </label>
+        </li>
+        <li>
+          <label for="McConnell">
+            <input type="text" name="McConnell" id="mcConnellSub" /> replaces
+            McConnell
+          </label>
+        </li>
+        <li>
+          <label for="Pence">
+            <input type="text" name="Pence" id="penceSub" /> replaces Pence
+          </label>
+        </li>
+        <li>
+          <label for="Conway">
+            <input type="text" name="Conway" id="conwaySub" /> replaces Conway
+          </label>
+        </li>
+      </ul>
+    </div>
+
+    <div id="status"></div>
+    <button id="save">Save</button>
+    <button id="reset">Restore Defaults</button>
+    <div>Current chrome storage below</div>
+    <div id="storageHelper"></div>
+
+    <script src="index.js"></script>
+  </body>
+</html>

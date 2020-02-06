@@ -1,0 +1,122 @@
+.chumpTrump {
+  animation-name: rainbow;
+  animation-duration: 0.5s;
+  animation-iteration-count: 5;
+  animation-delay: 1s;
+}
+
+.chumpTrump:hover {
+  animation-name: rainbow;
+  animation-duration: 0.5s;
+  animation-iteration-count: infinite;
+}
+.in-trump-process {
+  display: none;
+}
+@keyframes otherRainbow {
+  0%,
+  100% {
+    background: linear-gradient(to right, black);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: black;
+  }
+  10% {
+    background: linear-gradient(to right, black 66%, red);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  20% {
+    background: linear-gradient(to right, black, red, orange);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  30% {
+    background: linear-gradient(to right, red, orange, green);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  40% {
+    background: linear-gradient(to right, orange, green, blue);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  50% {
+    background: linear-gradient(to right, green, blue, indigo);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  60% {
+    background: linear-gradient(to right, blue, indigo, violet);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  70% {
+    background: linear-gradient(to right, indigo, violet, black);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  80% {
+    background: linear-gradient(to right, violet, indigo, black);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  90% {
+    background: linear-gradient(to right, indigo 33%, black);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+}
+
+@keyframes rainbow {
+  0%,
+  100% {
+    background: linear-gradient(to right, black);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: black;
+  }
+  10% {
+    background: linear-gradient(to right, black 66%, red);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  20% {
+    background: linear-gradient(to right, black, red, orange);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  30% {
+    background: linear-gradient(to right, red, orange, green);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  40% {
+    background: linear-gradient(to right, orange, green, blue);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  50% {
+    background: linear-gradient(to right, green, blue, indigo);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  60% {
+    background: linear-gradient(to right, blue, indigo, violet);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  70% {
+    background: linear-gradient(to right, indigo, violet, black);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  80% {
+    background: linear-gradient(to right, violet, indigo, black);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  90% {
+    background: linear-gradient(to right, indigo 33%, black);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+}
