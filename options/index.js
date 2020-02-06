@@ -9,7 +9,7 @@ function save_options() {
       Trump: trumpSub,
       McConnell: mcConnellSub,
       Pence: penceSub,
-      Conway: conwaySub,
+      Conway: conwaySub
     }),
     function() {
       // Update status to let user know options were saved.
@@ -28,7 +28,7 @@ const defaults = {
   Trump: 'Chump',
   Pence: '"Def not Gay" Pence',
   McConnell: 'McTurtle',
-  Conway: '"Miss Misinformation" Conway',
+  Conway: '"Miss Misinformation" Conway'
 };
 // Restores select box and checkbox state using the preferences
 // stored in chrome.storage.
@@ -43,9 +43,8 @@ function restore_options() {
 }
 
 function helper() {
-  const helperDiv = document.getElementById('storageHelper');
   chrome.storage.sync.get(res => {
-    helperDiv.innerHTML = JSON.stringify(res);
+    console.log('this is current chrome storage', res);
   });
 }
 
@@ -87,6 +86,6 @@ function dictionaryMaker(storageObj) {
     PENCE: storageObj.Pence.toUpperCase() || '"Def not Gay" PENCE',
     pence:
       storageObj.Pence.slice(0, 1).toUpperCase() +
-      storageObj.Pence.slice(1).toLowerCase(),
+      storageObj.Pence.slice(1).toLowerCase()
   };
 }

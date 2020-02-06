@@ -1,47 +1,71 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Trump is a Chump Options</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.8.0/css/bulma.min.css">
     <link rel="stylesheet" href="style.css" />
+    <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
+    <script defer src="index.js"></script>
   </head>
-
   <body>
-    <h1>Trump is a Chump Options</h1>
-    <p>
-      Fill in below what you'd like to replace in webpages you visit.
-    </p>
-    <div>
-      <ul>
-        <li>
-          <label for="Trump">
-            <input type="text" name="Trump" id="trumpSub" /> replaces Trump
-          </label>
-        </li>
-        <li>
-          <label for="McConnell">
-            <input type="text" name="McConnell" id="mcConnellSub" /> replaces
-            McConnell
-          </label>
-        </li>
-        <li>
-          <label for="Pence">
-            <input type="text" name="Pence" id="penceSub" /> replaces Pence
-          </label>
-        </li>
-        <li>
-          <label for="Conway">
-            <input type="text" name="Conway" id="conwaySub" /> replaces Conway
-          </label>
-        </li>
-      </ul>
+    <section class="hero" id="trump-hero">
+      <div class="hero-body" >
+        <div class="container">
+          <h1 class="title">
+            Trump is a Chump Options
+          </h1>
+          <h2 class="subtitle">
+            Fill in below what you'd like to replace in webpages you visit.
+          </h2>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="field">
+        <div class='label'>This will replace Trump</div>
+        <div class="control">
+          <input class="input" type="text" name="Trump" id="trumpSub" />
+        </div>
+      </div>
+
+      <div class="field">
+        <div class='label'>This will replace McConnell</div>
+        <div class="control">
+          <input class="input" type="text" name="McConnell" id="mcConnellSub" />
+        </div>
+      </div>
+
+      <div class="field">
+        <div class='label'>This will replace Pence</div>
+        <div class="control">
+          <input class="input" type="text" name="Pence" id="penceSub" />
+        </div>
+      </div>
+
+      <div class="field">
+        <div class='label'>This will replace Conway</div>
+        <div class="control">
+          <input class="input" type="text" name="Conway" id="conwaySub"  />
+        </div>
+      </div>
+
+      <div class="field is-grouped">
+          <div class="control">
+          <button class="button is-outlined is-dark" id="save">Save</button>
+        </div>
+        <div class="control">
+          <button class="button" id="reset">Restore Defaults</button>
+        </div>
+        <div id="status"></div>
+      </div>
     </div>
-
-    <div id="status"></div>
-    <button id="save">Save</button>
-    <button id="reset">Restore Defaults</button>
-    <div>Current chrome storage below</div>
-    <div id="storageHelper"></div>
-
-    <script src="index.js"></script>
+    </section>
   </body>
+
 </html>
+
+
+
