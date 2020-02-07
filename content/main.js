@@ -15,7 +15,7 @@ function theBusiness() {
   chrome.storage.sync.get(cStorageObj => {
     // console.log('this is current Chrome Storage: ', cStorageObj);
     // console.log('Begin collecting nodes');
-    const nodes = createNodes();
+    const nodes = createNodes(document.body);
     // console.log('here are nodes', nodes);
     const dict = dictionaryMaker(cStorageObj);
     // console.log('here is dict', dict);
@@ -52,9 +52,9 @@ function theBusiness() {
   });
 }
 
-function createNodes() {
+function createNodes(startingNode) {
   const walker = document.createTreeWalker(
-    document.body,
+    startingNode,
     NodeFilter.SHOW_TEXT,
     function(node) {
       let trump = node.textContent.match(/Trump\b/gi);
