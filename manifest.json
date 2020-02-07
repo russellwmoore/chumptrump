@@ -2,7 +2,7 @@
   "manifest_version": 2,
   "name": "Trump is a Chump",
   "version": "0.0.1",
-  "description": "A bit of a laugh to keep you sane. Manifest Change",
+  "description": "Replace the names of politicians with words of your own!",
   "content_scripts": [
     {
       "css": ["./content/style.css"],
