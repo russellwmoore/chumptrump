@@ -1,16 +1,24 @@
 const sender = document.getElementById('sender');
+const sparkler = document.getElementById('sparkle');
 const message = document.getElementById('message');
 
-sender.addEventListener('click', testMessage);
+sparkler.addEventListener('click', sparkle);
+sender.addEventListener('click', refresh);
 
-function testMessage() {
-  message.innerText = 'Trying';
+function refresh() {
   chrome.tabs.query({ active: true, currentWindow: true }, function(tabs) {
     const tab = tabs[0];
-    chrome.tabs.sendMessage(tab.id, { messageFromPopup: 'From Popup. Hi!' });
+    chrome.tabs.sendMessage(tab.id, { command: 'refresh' });
   });
 }
 
+function sparkle() {
+  console.log('*****sparkle');
+  chrome.tabs.query({ active: true, currentWindow: true }, function(tabs) {
+    const tab = tabs[0];
+    chrome.tabs.sendMessage(tab.id, { command: 'sparkle' });
+  });
+}
 chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
   console.log(
     sender.tab

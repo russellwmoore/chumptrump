@@ -6,7 +6,15 @@ window.onload = () => {
 chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
   console.log('Received message in Main.js: ', request);
   console.log('Sender of message in Main.js: ', sender);
-  sendResponse({ fromMain: 'Send it back' });
+
+  if (request.command === 'refresh') {
+    console.log('in the business of refresh');
+    theBusiness();
+  }
+  if (request.command === 'sparkle') {
+    console.log('in sparkle func');
+    sparkle();
+  }
   return true;
 });
 
@@ -77,6 +85,15 @@ function createNodes(startingNode) {
   return nodes;
 }
 
+function sparkle() {
+  let nodes = document.querySelectorAll('.initAnimate');
+  console.log('nodes1', nodes);
+  nodes.forEach(n => n.classList.toggle('chumpTrump'));
+  console.log('nodes2', nodes);
+  void nodes[0].offsetWidth;
+  nodes.forEach(n => n.classList.toggle('chumpTrump'));
+  console.log('nodes3', nodes);
+}
 function dictionaryMaker(storageObj) {
   return {
     Trump:
