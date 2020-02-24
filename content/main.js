@@ -115,7 +115,7 @@ function dictionaryMaker(storageObj) {
     PENCE: storageObj.Pence.toUpperCase() || '"Def not Gay" PENCE',
     pence:
       storageObj.Pence.slice(0, 1).toUpperCase() +
-      storageObj.Pence.slice(1).toLowerCase()
+      storageObj.Pence.slice(1).toLowerCase(),
   };
 }
 

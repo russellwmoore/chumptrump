@@ -1,15 +1,15 @@
 function save_options() {
-  const trumpSub = document.getElementById('trumpSub').value;
-  const mcConnellSub = document.getElementById('mcConnellSub').value;
-  const penceSub = document.getElementById('penceSub').value;
-  const conwaySub = document.getElementById('conwaySub').value;
+  let trumpSub = document.getElementById('trumpSub').value;
+  let mcConnellSub = document.getElementById('mcConnellSub').value;
+  let penceSub = document.getElementById('penceSub').value;
+  let conwaySub = document.getElementById('conwaySub').value;
 
   chrome.storage.sync.set(
     dictionaryMaker({
-      Trump: trumpSub,
-      McConnell: mcConnellSub,
-      Pence: penceSub,
-      Conway: conwaySub
+      Trump: sanitize(trumpSub),
+      McConnell: sanitize(mcConnellSub),
+      Pence: sanitize(penceSub),
+      Conway: sanitize(conwaySub),
     }),
     function() {
       // Update status to let user know options were saved.
@@ -28,17 +28,17 @@ const defaults = {
   Trump: 'Chump',
   Pence: '"Def not Gay" Pence',
   McConnell: 'McTurtle',
-  Conway: '"Miss Misinformation" Conway'
+  Conway: '"Miss Misinformation" Conway',
 };
 // Restores select box and checkbox state using the preferences
 // stored in chrome.storage.
 function restore_options() {
   // this provides default values if none are present
   chrome.storage.sync.get(defaults, function(items) {
-    document.getElementById('trumpSub').value = items.Trump;
-    document.getElementById('mcConnellSub').value = items.McConnell;
-    document.getElementById('penceSub').value = items.Pence;
-    document.getElementById('conwaySub').value = items.Conway;
+    document.getElementById('trumpSub').value = parse(items.Trump);
+    document.getElementById('mcConnellSub').value = parse(items.McConnell);
+    document.getElementById('penceSub').value = parse(items.Pence);
+    document.getElementById('conwaySub').value = parse(items.Conway);
   });
 }
 
@@ -51,11 +51,11 @@ function helper() {
 function resetDefaults() {
   chrome.storage.sync.set(defaults, () => {
     chrome.storage.sync.get(items => {
-      console.log('itesm in reset defaults', items);
-      document.getElementById('trumpSub').value = items.Trump;
-      document.getElementById('mcConnellSub').value = items.McConnell;
-      document.getElementById('penceSub').value = items.Pence;
-      document.getElementById('conwaySub').value = items.Conway;
+      console.log('items in reset defaults', items);
+      document.getElementById('trumpSub').value = parse(items.Trump);
+      document.getElementById('mcConnellSub').value = parse(items.McConnell);
+      document.getElementById('penceSub').value = parse(items.Pence);
+      document.getElementById('conwaySub').value = parse(items.Conway);
     });
   });
   helper();
@@ -86,6 +86,19 @@ function dictionaryMaker(storageObj) {
     PENCE: storageObj.Pence.toUpperCase() || '"Def not Gay" PENCE',
     pence:
       storageObj.Pence.slice(0, 1).toUpperCase() +
-      storageObj.Pence.slice(1).toLowerCase()
+      storageObj.Pence.slice(1).toLowerCase(),
   };
+}
+
+function sanitize(str) {
+  let temp = document.createElement('div');
+  temp.innerText = str;
+  return temp.innerHTML;
+}
+
+function parse(str) {
+  console.log('parse running');
+  let temp = document.createElement('div');
+  temp.innerHTML = str;
+  return temp.innerText;
 }
