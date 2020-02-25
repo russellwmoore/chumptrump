@@ -1,9 +1,15 @@
 const sender = document.getElementById('sender');
 const sparkler = document.getElementById('sparkle');
 const message = document.getElementById('message');
+const options = document.getElementById('options');
 
 sparkler.addEventListener('click', sparkle);
 sender.addEventListener('click', refresh);
+options.addEventListener('click', gotoOptions);
+
+function gotoOptions() {
+  chrome.tabs.create({ url: '/options/index.html' });
+}
 
 function refresh() {
   chrome.tabs.query({ active: true, currentWindow: true }, function(tabs) {

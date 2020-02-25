@@ -46,6 +46,12 @@ function helper() {
   chrome.storage.sync.get(res => {
     console.log('this is current chrome storage', res);
   });
+
+  //TODO:
+  // Make better storage object.
+  // Enclose everything in a TrumpChump object?
+  // dictionary
+  // site whitelist?
 }
 
 function resetDefaults() {
