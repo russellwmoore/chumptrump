@@ -5,15 +5,19 @@ function save_options() {
   let conwaySub = document.getElementById('conwaySub').value;
 
   chrome.storage.sync.set(
-    dictionaryMaker({
-      Trump: sanitize(trumpSub),
-      McConnell: sanitize(mcConnellSub),
-      Pence: sanitize(penceSub),
-      Conway: sanitize(conwaySub),
-    }),
+    {
+      chumpTrump: {
+        dictionary: dictionaryMaker({
+          Trump: sanitize(trumpSub),
+          McConnell: sanitize(mcConnellSub),
+          Pence: sanitize(penceSub),
+          Conway: sanitize(conwaySub),
+        }),
+      },
+    },
     function() {
       // Update status to let user know options were saved.
-      var status = document.getElementById('status');
+      let status = document.getElementById('status');
       status.textContent = 'Options saved. Refresh to see new names.';
       console.log('inside callback on save_options');
       helper();
@@ -24,17 +28,25 @@ function save_options() {
   );
 }
 
-const defaults = {
+const defaultDictionary = {
   Trump: 'Chump',
-  Pence: '"Def not Gay" Pence',
+  TRUMP: 'CHUMP',
+  trump: 'chump',
+  mcconnell: 'mcturtle',
   McConnell: 'McTurtle',
+  MCCONNELL: 'MCTURTLE',
   Conway: '"Miss Misinformation" Conway',
+  CONWAY: '"Miss Misinformation" CONWAY',
+  conway: '"miss misinformation" conway',
+  Pence: '"Def not Gay" Pence',
+  PENCE: '"DEF NOT GAY" PENCE',
+  pence: 'def not gay" pence',
 };
 // Restores select box and checkbox state using the preferences
 // stored in chrome.storage.
 function restore_options() {
-  // this provides default values if none are present
-  chrome.storage.sync.get(defaults, function(items) {
+  chrome.storage.sync.get(cStorageObj => {
+    const items = cStorageObj.chumpTrump.dictionary;
     document.getElementById('trumpSub').value = parse(items.Trump);
     document.getElementById('mcConnellSub').value = parse(items.McConnell);
     document.getElementById('penceSub').value = parse(items.Pence);
@@ -46,24 +58,22 @@ function helper() {
   chrome.storage.sync.get(res => {
     console.log('this is current chrome storage', res);
   });
-
-  //TODO:
-  // Make better storage object.
-  // Enclose everything in a TrumpChump object?
-  // dictionary
-  // site whitelist?
 }
 
 function resetDefaults() {
-  chrome.storage.sync.set(defaults, () => {
-    chrome.storage.sync.get(items => {
-      console.log('items in reset defaults', items);
-      document.getElementById('trumpSub').value = parse(items.Trump);
-      document.getElementById('mcConnellSub').value = parse(items.McConnell);
-      document.getElementById('penceSub').value = parse(items.Pence);
-      document.getElementById('conwaySub').value = parse(items.Conway);
-    });
-  });
+  chrome.storage.sync.set(
+    { chumpTrump: { dictionary: defaultDictionary } },
+    () => {
+      chrome.storage.sync.get(({ chumpTrump }) => {
+        // console.log('items in reset defaults', items);
+        let items = chumpTrump.dictionary;
+        document.getElementById('trumpSub').value = parse(items.Trump);
+        document.getElementById('mcConnellSub').value = parse(items.McConnell);
+        document.getElementById('penceSub').value = parse(items.Pence);
+        document.getElementById('conwaySub').value = parse(items.Conway);
+      });
+    }
+  );
   helper();
 }
 document.addEventListener('DOMContentLoaded', restore_options);
@@ -71,6 +81,7 @@ document.addEventListener('DOMContentLoaded', helper);
 document.getElementById('save').addEventListener('click', save_options);
 document.getElementById('reset').addEventListener('click', resetDefaults);
 
+// eslint-disable-next-line complexity
 function dictionaryMaker(storageObj) {
   return {
     Trump:
@@ -103,7 +114,6 @@ function sanitize(str) {
 }
 
 function parse(str) {
-  console.log('parse running');
   let temp = document.createElement('div');
   temp.innerHTML = str;
   return temp.innerText;

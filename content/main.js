@@ -1,8 +1,9 @@
-window.onload = () => {
-  console.log('&&&&&&&& Extension page is fully loaded');
-  console.log('***************** start *****************');
-  theBusiness();
-};
+console.log('&&&&&&&& Extension page is fully loaded');
+console.log('***************** start *****************');
+console.log('Location!!!', window.location);
+
+theBusiness();
+
 chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
   console.log('Received message in Main.js: ', request);
   console.log('Sender of message in Main.js: ', sender);
@@ -21,42 +22,24 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
 function theBusiness() {
   // console.log('Start theBusiness');
   chrome.storage.sync.get(cStorageObj => {
-    // console.log('this is current Chrome Storage: ', cStorageObj);
+    console.log('this is current Chrome Storage: ', cStorageObj);
+    if (
+      cStorageObj.whiteList &&
+      window.location.hostname in cStorageObj.whiteList
+    ) {
+      return;
+    }
     // console.log('Begin collecting nodes');
+
     const nodes = createNodes(document.body);
     // console.log('here are nodes', nodes);
-    const dict = dictionaryMaker(cStorageObj);
+    // const dict = dictionaryMaker(dictionaryFromStorage);
     // console.log('here is dict', dict);
     nodes.forEach(node => {
-      replacer(node, dict);
+      replacer(node, cStorageObj.chumpTrump.dictionary);
     });
 
-    //start Observer
-    // const targetNode = document.getElementsByTagName('body')[0];
-
-    // // Options for the observer (which mutations to observe)
-    // const config = { attributes: true, childList: true, subtree: true };
-
-    // // Callback function to execute when mutations are observed
-    // const observerCallback = function(mutationsList) {
-    //   for (let mutation of mutationsList) {
-    //     if (mutation.type === 'childList') {
-    //       console.log('A child node has been added or removed.', mutation);
-    //       mutation.addedNodes.forEach(replacer, dict);
-    //     }
-    //   }
-    // };
-
-    // // Create an observer instance linked to the callback function
-    // const obs = new MutationObserver(observerCallback);
-
-    // obs.observe(targetNode, config);
-    // document.body.classList.toggle('in-trump-process');
     console.log('***************** end *****************');
-
-    chrome.storage.sync.set(dict, () => {
-      console.log('Set storage with with ' + JSON.stringify(dict));
-    });
   });
 }
 
@@ -94,33 +77,9 @@ function sparkle() {
   nodes.forEach(n => n.classList.toggle('chumpTrump'));
   console.log('nodes3', nodes);
 }
-function dictionaryMaker(storageObj) {
-  return {
-    Trump:
-      storageObj.Trump.slice(0, 1).toUpperCase() +
-        storageObj.Trump.slice(1).toLowerCase() || 'Chump',
-    TRUMP: storageObj.Trump.toUpperCase() || 'CHUMP',
-    trump: storageObj.Trump.toLowerCase() || 'chump',
-    mcconnell:
-      storageObj.McConnell.slice(0, 1).toUpperCase() +
-      storageObj.McConnell.slice(1).toLowerCase(),
-    McConnell: storageObj.McConnell || 'McTurtle',
-    MCCONNELL: storageObj.McConnell.toUpperCase() || 'MCTURTLE',
-    Conway: storageObj.Conway || '"Miss Misinformation" Conway',
-    CONWAY: storageObj.Conway.toUpperCase() || '"Miss Misinformation" CONWAY',
-    conway:
-      storageObj.Conway.slice(0, 1).toUpperCase() +
-      storageObj.Conway.slice(1).toLowerCase(),
-    Pence: storageObj.Pence || '"Def not Gay" Pence',
-    PENCE: storageObj.Pence.toUpperCase() || '"Def not Gay" PENCE',
-    pence:
-      storageObj.Pence.slice(0, 1).toUpperCase() +
-      storageObj.Pence.slice(1).toLowerCase(),
-  };
-}
 
 function replacer(node, dictionary) {
-  console.log('node', node);
+  // console.log('node', node);
   if (node.parentElement !== null) {
     node.parentElement.innerHTML = node.parentElement.innerHTML.replace(
       /Trump|McConnell|Conway|Pence/gi,

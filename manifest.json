@@ -7,9 +7,14 @@
     {
       "css": ["./content/style.css"],
       "js": ["./content/main.js"],
-      "matches": ["https://*/*"]
+      "matches": ["https://*/*"],
+      "run_at": "document_idle"
     }
   ],
+  "background": {
+    "scripts": ["background/index.js"],
+    "persistent": false
+  },
   "permissions": ["activeTab", "storage"],
   "icons": { "16": "16.png", "48": "48.png", "128": "128.png" },
   "browser_action": {
