@@ -6,14 +6,12 @@ function save_options() {
 
   chrome.storage.sync.set(
     {
-      chumpTrump: {
-        dictionary: dictionaryMaker({
-          Trump: sanitize(trumpSub),
-          McConnell: sanitize(mcConnellSub),
-          Pence: sanitize(penceSub),
-          Conway: sanitize(conwaySub),
-        }),
-      },
+      chumpTrumpDictionary: dictionaryMaker({
+        Trump: sanitize(trumpSub),
+        McConnell: sanitize(mcConnellSub),
+        Pence: sanitize(penceSub),
+        Conway: sanitize(conwaySub),
+      }),
     },
     function() {
       // Update status to let user know options were saved.
@@ -46,7 +44,7 @@ const defaultDictionary = {
 // stored in chrome.storage.
 function restore_options() {
   chrome.storage.sync.get(cStorageObj => {
-    const items = cStorageObj.chumpTrump.dictionary;
+    const items = cStorageObj.chumpTrumpDictionary;
     document.getElementById('trumpSub').value = parse(items.Trump);
     document.getElementById('mcConnellSub').value = parse(items.McConnell);
     document.getElementById('penceSub').value = parse(items.Pence);
@@ -62,11 +60,14 @@ function helper() {
 
 function resetDefaults() {
   chrome.storage.sync.set(
-    { chumpTrump: { dictionary: defaultDictionary } },
+    {
+      chumpTrumpDictionary: defaultDictionary,
+      chumpTrumpWhiteList: { 'mail.google.com': true },
+    },
     () => {
-      chrome.storage.sync.get(({ chumpTrump }) => {
+      chrome.storage.sync.get(cStorageObj => {
         // console.log('items in reset defaults', items);
-        let items = chumpTrump.dictionary;
+        let items = cStorageObj.chumpTrumpDictionary;
         document.getElementById('trumpSub').value = parse(items.Trump);
         document.getElementById('mcConnellSub').value = parse(items.McConnell);
         document.getElementById('penceSub').value = parse(items.Pence);
