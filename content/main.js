@@ -5,6 +5,7 @@ theBusiness();
 chrome.runtime.onMessage.addListener(function(request, sender) {
   console.log('Received message in Main.js: ', request);
   console.log('Sender of message in Main.js: ', sender);
+  console.log('location', window.location.host);
 
   if (request.command === 'refresh') {
     console.log('in the business of refresh');
@@ -14,6 +15,12 @@ chrome.runtime.onMessage.addListener(function(request, sender) {
     console.log('in sparkle func');
     sparkle();
   }
+
+  if (request.command === 'whiteList') {
+    console.log('in whitelist');
+    addWhiteList();
+  }
+
   return true;
 });
 
@@ -90,4 +97,12 @@ function replacer(node, dictionary) {
       }
     );
   }
+}
+
+function addWhiteList() {
+  chrome.storage.sync.get(cStorageObject => {
+    let list = cStorageObject.chumpTrumpWhiteList;
+    list[window.location.host] = true;
+    chrome.storage.sync.set({ chumpTrumpWhiteList: list });
+  });
 }

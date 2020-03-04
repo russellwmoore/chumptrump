@@ -2,10 +2,19 @@ const sender = document.getElementById('sender');
 const sparkler = document.getElementById('sparkle');
 const message = document.getElementById('message');
 const options = document.getElementById('options');
+const add = document.getElementById('add');
 
 sparkler.addEventListener('click', sparkle);
 sender.addEventListener('click', refresh);
 options.addEventListener('click', gotoOptions);
+add.addEventListener('click', addWhiteList);
+
+function addWhiteList() {
+  chrome.tabs.query({ active: true, currentWindow: true }, function(tabs) {
+    const tab = tabs[0];
+    chrome.tabs.sendMessage(tab.id, { command: 'whiteList' });
+  });
+}
 
 function gotoOptions() {
   chrome.tabs.create({ url: '/options/index.html' });

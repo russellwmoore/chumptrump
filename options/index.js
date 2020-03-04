@@ -49,6 +49,22 @@ function restore_options() {
     document.getElementById('mcConnellSub').value = parse(items.McConnell);
     document.getElementById('penceSub').value = parse(items.Pence);
     document.getElementById('conwaySub').value = parse(items.Conway);
+
+    let whiteList = document.getElementById('white-list');
+    const keys = Object.keys(cStorageObj.chumpTrumpWhiteList);
+    keys.forEach(key => {
+      let li = document.createElement('li');
+
+      li.innerText = key;
+      li.addEventListener('click', e => {
+        console.log('event', e.target.innerText);
+        // remove from storage whitelist
+        removeFromWhiteList(e.target.innerText);
+        e.target.remove();
+        // remove listitem from list
+      });
+      whiteList.appendChild(li);
+    });
   });
 }
 
@@ -118,4 +134,12 @@ function parse(str) {
   let temp = document.createElement('div');
   temp.innerHTML = str;
   return temp.innerText;
+}
+
+function removeFromWhiteList(str) {
+  chrome.storage.sync.get(cStorageObj => {
+    let oldList = cStorageObj.chumpTrumpWhiteList;
+    delete oldList[str];
+    chrome.storage.sync.set({ chumpTrumpWhiteList: oldList });
+  });
 }
