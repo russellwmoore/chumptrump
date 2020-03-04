@@ -16,7 +16,7 @@
     "persistent": false
   },
   "permissions": ["activeTab", "storage"],
-  "icons": { "16": "16.png", "48": "48.png", "128": "128.png" },
+  "icons": { "16": "logo_16.png", "48": "logo_48.png", "128": "logo_128.png" },
   "browser_action": {
     "default_popup": "./popup/index.html"
   },
