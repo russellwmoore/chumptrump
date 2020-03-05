@@ -23,6 +23,20 @@ ul {
   animation-delay: 1s;
 }
 
+.white-list-item {
+  display: flex;
+  align-items: center;
+}
+
+.white-list-item img {
+  width: 16px;
+  height: 16px;
+  margin-right: 5px;
+}
+.white-list-item img:hover {
+  cursor: pointer;
+}
+
 @keyframes rainbow {
   0%,
   100% {

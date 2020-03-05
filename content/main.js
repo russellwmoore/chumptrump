@@ -2,7 +2,8 @@ console.log('&&&&&&&& Extension page is fully loaded');
 
 theBusiness();
 
-chrome.runtime.onMessage.addListener(function(request, sender) {
+chrome.runtime.onMessage.addListener(function(request, sender, reply) {
+  console.log('content/main.js');
   console.log('Received message in Main.js: ', request);
   console.log('Sender of message in Main.js: ', sender);
   console.log('location', window.location.host);
@@ -15,10 +16,15 @@ chrome.runtime.onMessage.addListener(function(request, sender) {
     console.log('in sparkle func');
     sparkle();
   }
-
   if (request.command === 'whiteList') {
     console.log('in whitelist');
     addWhiteList();
+    reply({ location: window.location.host });
+  }
+  if (request.command === 'remove-whiteList') {
+    console.log('in remove whitelist');
+    removeFromWhiteList(window.location.host);
+    reply({ location: window.location.host });
   }
 
   return true;
@@ -73,12 +79,12 @@ function createNodes(startingNode) {
 
 function sparkle() {
   let nodes = document.querySelectorAll('.initAnimate');
-  console.log('nodes1', nodes);
+  // console.log('nodes1', nodes);
   nodes.forEach(n => n.classList.toggle('chumpTrump'));
-  console.log('nodes2', nodes);
+  // console.log('nodes2', nodes);
   void nodes[0].offsetWidth;
   nodes.forEach(n => n.classList.toggle('chumpTrump'));
-  console.log('nodes3', nodes);
+  // console.log('nodes3', nodes);
 }
 
 function replacer(node, dictionary) {
@@ -103,6 +109,14 @@ function addWhiteList() {
   chrome.storage.sync.get(cStorageObject => {
     let list = cStorageObject.chumpTrumpWhiteList;
     list[window.location.host] = true;
+    chrome.storage.sync.set({ chumpTrumpWhiteList: list });
+  });
+}
+
+function removeFromWhiteList(str) {
+  chrome.storage.sync.get(cStorageObj => {
+    let list = cStorageObj.chumpTrumpWhiteList;
+    delete list[str];
     chrome.storage.sync.set({ chumpTrumpWhiteList: list });
   });
 }

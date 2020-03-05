@@ -20,3 +20,15 @@ chrome.runtime.onInstalled.addListener(function() {
     },
   });
 });
+
+chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
+  console.log(
+    'background/index.js',
+    sender.tab
+      ? 'from a content script:' + sender.tab.url
+      : 'from the extension'
+  );
+
+  const loc = window.location.host;
+  sendResponse({ farewell: 'goodbye', location: loc });
+});

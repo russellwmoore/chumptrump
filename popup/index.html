@@ -2,15 +2,29 @@
 <html>
   <head>
     <link rel="stylesheet" type="text/css" href="style.css" />
+    <!-- <link rel="stylesheet" type="text/css" href="bulma.css" /> -->
   </head>
   <body>
-    <h1>Chump Trump</h1>
-    <p>Making reading the internet a little closer to tolerable.</p>
-    <div id="message"></div>
-    <button id="options">Options</button>
-    <button id="sender">Refresh</button>
-    <button id="sparkle">Sparkle</button>
-    <button id="add">Add WhiteList</button>
+    <div>
+      <h1 id="title">Chump Trump</h1>
+      <p>Making reading the internet a little closer to tolerable.</p>
+      <div class="buttons">
+        <button id="options" title="Check your options">Options</button>
+        <button id="refresh" title="Replace words again!">
+          Refresh
+        </button>
+        <button id="sparkle" title="Click and then watch your words *sparkle*.">
+          Sparkle
+        </button>
+        <button id="add" title="I don't want to run ChumpTrump on this page.">
+          Add this site to WhiteList
+        </button>
+        <button id="remove" title="I want to run ChumpTrump on this page.">
+          Remove this site from WhiteList
+        </button>
+      </div>
+      <div id="message"></div>
+    </div>
     <script src="index.js"></script>
   </body>
 </html>

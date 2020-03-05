@@ -50,22 +50,32 @@ function restore_options() {
     document.getElementById('penceSub').value = parse(items.Pence);
     document.getElementById('conwaySub').value = parse(items.Conway);
 
-    let whiteList = document.getElementById('white-list');
+    // let whiteList = document.getElementById('white-list');
     const keys = Object.keys(cStorageObj.chumpTrumpWhiteList);
-    keys.forEach(key => {
-      let li = document.createElement('li');
-
-      li.innerText = key;
-      li.addEventListener('click', e => {
-        console.log('event', e.target.innerText);
-        // remove from storage whitelist
-        removeFromWhiteList(e.target.innerText);
-        e.target.remove();
-        // remove listitem from list
-      });
-      whiteList.appendChild(li);
-    });
+    keys.forEach(addListItemsToWhitelist);
   });
+}
+
+function addListItemsToWhitelist(host) {
+  let whiteList = document.getElementById('white-list');
+
+  let li = document.createElement('li');
+  let text = document.createElement('div');
+  let x = document.createElement('img');
+  x.src = '../128.png';
+  x.title = 'Remove from whitelist';
+  text.innerText = host;
+  li.classList.add('white-list-item');
+  li.appendChild(x);
+  li.appendChild(text);
+  x.addEventListener('click', e => {
+    console.log('event', e.target.innerText);
+    // remove from storage whitelist
+    removeFromWhiteList(e.target.nextSibling.innerText);
+    e.target.parentNode.remove();
+    // remove listitem from list
+  });
+  whiteList.appendChild(li);
 }
 
 function helper() {
@@ -143,3 +153,15 @@ function removeFromWhiteList(str) {
     chrome.storage.sync.set({ chumpTrumpWhiteList: oldList });
   });
 }
+
+chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
+  console.log(
+    'options/index.js',
+    sender.tab
+      ? 'from a content script:' + sender.tab.url
+      : 'from the extension',
+    'request',
+    request,
+    console.log('location to take off from dom')
+  );
+});
