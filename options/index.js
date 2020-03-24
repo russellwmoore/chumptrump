@@ -17,8 +17,8 @@ function save_options() {
       // Update status to let user know options were saved.
       let status = document.getElementById('status');
       status.textContent = 'Options saved. Refresh to see new names.';
-      console.log('inside callback on save_options');
-      helper();
+
+      // helper();
       setTimeout(function() {
         status.textContent = '';
       }, 1750);
@@ -69,7 +69,6 @@ function addListItemsToWhitelist(host) {
   li.appendChild(x);
   li.appendChild(text);
   x.addEventListener('click', e => {
-    console.log('event', e.target.innerText);
     // remove from storage whitelist
     removeFromWhiteList(e.target.nextSibling.innerText);
     e.target.parentNode.remove();
@@ -78,11 +77,11 @@ function addListItemsToWhitelist(host) {
   whiteList.appendChild(li);
 }
 
-function helper() {
-  chrome.storage.sync.get(res => {
-    console.log('this is current chrome storage', res);
-  });
-}
+// function helper() {
+//   chrome.storage.sync.get(res => {
+//     console.log('this is current chrome storage', res);
+//   });
+// }
 
 function resetDefaults() {
   chrome.storage.sync.set(
@@ -92,7 +91,6 @@ function resetDefaults() {
     },
     () => {
       chrome.storage.sync.get(cStorageObj => {
-        // console.log('items in reset defaults', items);
         let items = cStorageObj.chumpTrumpDictionary;
         document.getElementById('trumpSub').value = parse(items.Trump);
         document.getElementById('mcConnellSub').value = parse(items.McConnell);
@@ -101,10 +99,10 @@ function resetDefaults() {
       });
     }
   );
-  helper();
+  // helper();
 }
 document.addEventListener('DOMContentLoaded', restore_options);
-document.addEventListener('DOMContentLoaded', helper);
+// document.addEventListener('DOMContentLoaded', helper);
 document.getElementById('save').addEventListener('click', save_options);
 document.getElementById('reset').addEventListener('click', resetDefaults);
 

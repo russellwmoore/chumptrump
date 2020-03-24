@@ -1,5 +1,5 @@
 chrome.runtime.onInstalled.addListener(function() {
-  console.log('installed!');
+  console.log('Chump Trump extension installed!');
   chrome.storage.sync.set({
     chumpTrumpDictionary: {
       Trump: 'Chump',
@@ -22,13 +22,6 @@ chrome.runtime.onInstalled.addListener(function() {
 });
 
 chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
-  console.log(
-    'background/index.js',
-    sender.tab
-      ? 'from a content script:' + sender.tab.url
-      : 'from the extension'
-  );
-
   const loc = window.location.host;
   sendResponse({ farewell: 'goodbye', location: loc });
 });

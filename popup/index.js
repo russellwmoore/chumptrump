@@ -26,7 +26,6 @@ function addWhiteList() {
     chrome.tabs.sendMessage(tab.id, { command: 'whiteList' }, function(
       response
     ) {
-      // console.log('res', response);
       if (response) {
         updateMessage(response.location, 'added to');
       }
@@ -39,7 +38,6 @@ function removeWhiteList() {
     chrome.tabs.sendMessage(tab.id, { command: 'remove-whiteList' }, function(
       response
     ) {
-      console.log('res', response);
       updateMessage(response.location, 'removed from');
     });
   });
@@ -63,7 +61,6 @@ function refresh() {
 }
 
 function sparkle() {
-  console.log('*****sparkle');
   chrome.tabs.query({ active: true, currentWindow: true }, function(tabs) {
     const tab = tabs[0];
     chrome.tabs.sendMessage(tab.id, { command: 'sparkle' });
